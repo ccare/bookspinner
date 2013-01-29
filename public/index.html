@@ -1,0 +1,66 @@
+<html>
+<head>
+ 
+<!-- You can load the jQuery library from the Google Content Network.
+Probably better than from your own server. -->
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+ 
+<!-- Load the CloudCarousel JavaScript file -->
+<script type="text/JavaScript" src="/js/cloud-carousel.1.0.5.js"></script>
+ 
+<script>
+$(document).ready(function(){
+						   
+	// This initialises carousels on the container elements specified, in this case, carousel1.
+	
+
+    $.ajax({
+      dataType: "json",
+      url: "./lists/2",
+      success: function(data) {
+
+        var items = [];
+ 
+        $.each(data.results, function(key, val) {
+            var title = val.title;
+            var jacket = val.jacket;
+            items.push('<img class = "cloudcarousel" src="' + jacket + '" alt="' + title + '" title="' + title + '" />');
+        });
+        
+            $("#carousel1").append(items.join(','))
+
+
+            $("#carousel1").CloudCarousel({           
+                xPos: 256,
+                yPos: 64,
+                buttonLeft: $("#left-but"),
+                buttonRight: $("#right-but"),
+                altBox: $("#alt-text"),
+                titleBox: $("#title-text"),
+                autoRotate: "left"
+            }
+
+        );
+      }
+    });
+
+
+});
+ 
+</script>
+ 
+</head>
+    <body>
+    	<!-- This is the container for the carousel. -->
+        <div id = "carousel1" style="width:512px; height:256px;background:#000">   
+        </div>
+        
+        <!-- Define left and right buttons. -->
+        <input id="left-but"  type="button" value="Left" />
+        <input id="right-but" type="button" value="Right" />
+        
+        <!-- Define elements to accept the alt and title text from the images. -->
+        <p id="title-text"></p>
+        <p id="alt-text"></p>
+    </body>
+</html>
