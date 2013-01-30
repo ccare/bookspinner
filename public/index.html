@@ -23,11 +23,10 @@ $(document).ready(function(){
   */
 
   var list = 'http://opac.warwick.ac.uk/search~S15?/ftlist^bib13%2C1%2C0%2C10/mode=2'
-  var list = 'http://opac.warwick.ac.uk/search~S15?/ftlist^bib13%2C1%2C0%2C10/mode=2'
 
     $.ajax({
       dataType: "json",
-      url: "http://aqueous-ravine-7019.herokuapp.com/list",
+      url: "http://library.metadatis.com/list",
       dataType: "jsonp",
       data: { list: list },
       success: function(data) {
