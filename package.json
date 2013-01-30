@@ -2,8 +2,8 @@
   "name": "node-example",
   "version": "0.0.1",
   "dependencies": {
-    "express": ">1.0.0", 
-    "request": ">=1.0.0", 
+    "express": "x.x.x", 
+    "request": "x.x.x", 
     "jsdom": ">=0.3.0" 
   }
 }
