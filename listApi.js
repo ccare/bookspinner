@@ -1,7 +1,7 @@
 var request = require('request');
 var jsdom = require('jsdom');
 var express = require('express');
-var app = express();
+var app = express.createServer();
 
 var port = process.env.PORT || 3000;
 

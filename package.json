@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "dependencies": {
     "express": "2.5.x",
-    "request": "1.x.x", 
+    "request": "2.x.x", 
     "jsdom": ">=0.3.0" 
   },
   "engines": {
