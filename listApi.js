@@ -3,6 +3,8 @@ var jsdom = require('jsdom');
 var express = require('express');
 var app = express();
 
+var port = process.env.PORT || 3000;
+
 var cache = {};  
 
 var resources = [
@@ -110,4 +112,4 @@ app.get('/list', function(req, res) {
     });  
 });
 app.use(express.static('public'))
-app.listen(3000);
+app.listen(port);
