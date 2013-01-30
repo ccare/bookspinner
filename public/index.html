@@ -13,10 +13,23 @@ $(document).ready(function(){
 						   
 	// This initialises carousels on the container elements specified, in this case, carousel1.
 	
+    /*
+    lists:
+
+      ,
+  'http://opac.warwick.ac.uk/search~S15?/ftlist^bib33%2C1%2C0%2C1/mode=2',
+  'http://opac.warwick.ac.uk/search~S15?/ftlist^bib32%2C1%2C0%2C58/mode=2',
+  'http://opac.warwick.ac.uk/search~S15?/ftlist^bib31%2C1%2C0%2C37/mode=2'
+  */
+
+  var list = 'http://opac.warwick.ac.uk/search~S15?/ftlist^bib13%2C1%2C0%2C10/mode=2'
+  var list = 'http://opac.warwick.ac.uk/search~S15?/ftlist^bib13%2C1%2C0%2C10/mode=2'
 
     $.ajax({
       dataType: "json",
-      url: "./lists/2",
+      url: "./list",
+      dataType: "jsonp",
+      data: { list: list },
       success: function(data) {
 
         var items = [];
@@ -24,7 +37,9 @@ $(document).ready(function(){
         $.each(data.results, function(key, val) {
             var title = val.title;
             var jacket = val.jacket;
-            items.push('<img class = "cloudcarousel" src="' + jacket + '" alt="' + title + '" title="' + title + '" />');
+            if (jacket != null) {
+                items.push('<img class = "cloudcarousel" src="' + jacket + '" alt="' + title + '" title="' + title + '" />');
+            }
         });
         
             $("#carousel1").append(items.join(','))
