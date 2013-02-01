@@ -51,21 +51,21 @@ function builder($, items, callback) {
       $('div.briefcitRow').each(function(i, item) {
         var jacket = $(item).find('div.briefcitJacket img');
         var title = $(item).find('div.briefcitTitle');
-        var main = $(item).find('div.briefcitDetailMain');
-        var lines = $(main).text().trim().split("\n");
+        //var main = $(item).find('div.briefcitDetailMain');
+        //var lines = $(main).text().trim().split("\n");
         var jacketUrl = $(jacket).attr('src');
         if (jacketUrl != null && jacketUrl != undefined) {
           jacketUrl = jacketUrl.replace('CaptionBelow=t', 'CaptionBelow=f')
         }
         var item = {  
           'title': $(title).text().trim(), 
-          'link': $(title).attr('href'),
-          'jacket': jacketUrl,
-          'description': {
-            'line1': lines[1],
-            'line2': lines[2],
-            'line3': lines[3]
-          } 
+          'link': $(title).find('a').attr('href'),
+          'jacket': jacketUrl
+          //'description': {
+            //'line1': lines[1],
+            //'line2': lines[2],
+            //'line3': lines[3]
+          //} 
         }
         items.push(item)
       });
