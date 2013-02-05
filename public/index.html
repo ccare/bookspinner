@@ -1,80 +1,54 @@
 <html>
-<head>
- 
-<!-- You can load the jQuery library from the Google Content Network.
-Probably better than from your own server. -->
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
- 
-<!-- Load the CloudCarousel JavaScript file -->
-<script type="text/JavaScript" src="./js/cloud-carousel.1.0.5.js"></script>
- 
-<script>
-$(document).ready(function(){
-						   
-	// This initialises carousels on the container elements specified, in this case, carousel1.
-	
-    /*
-    lists:
-
-      ,
-  'http://opac.warwick.ac.uk/search~S15?/ftlist^bib33%2C1%2C0%2C1/mode=2',
-  'http://opac.warwick.ac.uk/search~S15?/ftlist^bib32%2C1%2C0%2C58/mode=2',
-  'http://opac.warwick.ac.uk/search~S15?/ftlist^bib31%2C1%2C0%2C37/mode=2'
-  */
-
-  var list = 'http://opac.warwick.ac.uk/search~S15?/ftlist^bib13%2C1%2C0%2C10/mode=2'
-
-    $.ajax({
-      dataType: "json",
-      url: "http://library.metadatis.com/list",
-      dataType: "jsonp",
-      data: { list: list },
-      success: function(data) {
-
-        var items = [];
- 
-        $.each(data.results, function(key, val) {
-            var title = val.title;
-            var jacket = val.jacket;
-            if (jacket != null) {
-                items.push('<img class = "cloudcarousel" src="' + jacket + '" alt="' + title + '" title="' + title + '" />');
-            }
-        });
-        
-            $("#carousel1").append(items.join(','))
-
-
-            $("#carousel1").CloudCarousel({           
-                xPos: 256,
-                yPos: 64,
-                buttonLeft: $("#left-but"),
-                buttonRight: $("#right-but"),
-                altBox: $("#alt-text"),
-                titleBox: $("#title-text"),
-                autoRotate: "left"
-            }
-
-        );
-      }
-    });
-
-
-});
- 
-</script>
- 
-</head>
+    <head>
+        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+        <script type="text/javascript" src="cloud-carousel.1.0.5.min.js"></script>
+        <script>
+            $(document).ready(function(){
+		/* Lists: 'http://opac.warwick.ac.uk/search~S15?/ftlist^bib33%2C1%2C0%2C1/mode=2',
+                        'http://opac.warwick.ac.uk/search~S15?/ftlist^bib32%2C1%2C0%2C58/mode=2',
+                        'http://opac.warwick.ac.uk/search~S15?/ftlist^bib31%2C1%2C0%2C37/mode=2',
+                        'http://opac.warwick.ac.uk/search~S15?/ftlist^bib13%2C1%2C0%2C10/mode=2'
+                */
+                var list = 'http://opac.warwick.ac.uk/search~S15?/ftlist^bib13%2C1%2C0%2C58/mode=2'
+                $.ajax({
+                    url: "http://library.metadatis.com/list",
+                    dataType: "jsonp",
+                    data: { list: list },
+                    success: function(data) {
+                        var items = [];
+                        $.each(data.results, function(key, val) {
+                            var title = val.title;
+                            var jacket = val.jacket;
+                            var link = val.link;
+                            if (jacket != null) {
+                                items.push('<a href="http://webcat.warwick.ac.uk' + link + '"><img class = "cloudcarousel" src="' + jacket + '" alt="' + title + '" title="' + title + '" /></a>');
+                            }
+                        });
+                        $("#carousel1").append(items.join(''))
+                        $("#carousel1").CloudCarousel({           
+                            xPos: 190,
+                            yPos: 64,
+                            xRadius: 150,
+                            speed: 0.1,
+                            buttonLeft: $("#left-but"),
+                            buttonRight: $("#right-but"),
+                            titleBox: $("#title-text"),
+                            //autoRotate: "left",
+                            bringToFront: true
+                        });
+                    }
+                });
+            });
+        </script>
+    </head>
     <body>
     	<!-- This is the container for the carousel. -->
-        <div id = "carousel1" style="width:512px; height:256px;background:#000">   
+        <div id = "carousel1" style="width:380px; height:256px;">   
         </div>
-        
         <!-- Define left and right buttons. -->
         <input id="left-but"  type="button" value="Left" />
         <input id="right-but" type="button" value="Right" />
-        
         <!-- Define elements to accept the alt and title text from the images. -->
-        <p id="title-text"></p>
-        <p id="alt-text"></p>
+        <!--<p id="title-text"></p>-->
     </body>
 </html>
