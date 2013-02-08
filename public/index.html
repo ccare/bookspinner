@@ -1,30 +1,33 @@
 <html>
     <head>
         <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-        <script type="text/javascript" src="cloud-carousel.1.0.5.min.js"></script>
+        <script type="text/javascript" src="lib/cloud-carousel.1.0.5.js"></script>
+        <script type="text/javascript" src="lib/jquery.jcarousel.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="tango/skin.css" />
         <script>
             $(document).ready(function(){
-		/* Lists: 'http://opac.warwick.ac.uk/search~S15?/ftlist^bib33%2C1%2C0%2C1/mode=2',
-                        'http://opac.warwick.ac.uk/search~S15?/ftlist^bib32%2C1%2C0%2C58/mode=2',
-                        'http://opac.warwick.ac.uk/search~S15?/ftlist^bib31%2C1%2C0%2C37/mode=2',
-                        'http://opac.warwick.ac.uk/search~S15?/ftlist^bib13%2C1%2C0%2C10/mode=2'
-                */
-                var list = 'http://opac.warwick.ac.uk/search~S15?/ftlist^bib13%2C1%2C0%2C58/mode=2'
+                //Change this to the link of the required create list
+                var list = 'http://webcat.warwick.ac.uk/search~S15?/ftlist^bib26%2C1%2C0%2C20/mode=2'
                 $.ajax({
                     url: "http://library.metadatis.com/list",
                     dataType: "jsonp",
                     data: { list: list },
                     success: function(data) {
                         var items = [];
+                        var items2 = [];
                         $.each(data.results, function(key, val) {
                             var title = val.title;
                             var jacket = val.jacket;
                             var link = val.link;
                             if (jacket != null) {
                                 items.push('<a href="http://webcat.warwick.ac.uk' + link + '"><img class = "cloudcarousel" src="' + jacket + '" alt="' + title + '" title="' + title + '" /></a>');
+                                items2.push('<li><a href="http://webcat.warwick.ac.uk' + link + '"><img src="' + jacket + '" alt="' + title + '" title="' + title + '" height="100px" /></a></li>');
                             }
                         });
-                        $("#carousel1").append(items.join(''))
+               
+                        
+                        //Beginning of CloudCarousel carousel
+                        $("#carousel1").append(items.join(''));
                         $("#carousel1").CloudCarousel({           
                             xPos: 190,
                             yPos: 64,
@@ -36,19 +39,31 @@
                             //autoRotate: "left",
                             bringToFront: true
                         });
+                        //End of CloudCarousel carousel
+                        
+                        //Beginning of jCarousel carousel
+                        $("#mycarousel").append(items2.join(''))
+                        jQuery('#mycarousel').jcarousel({
+                            //itemFallbackDimension: 75,
+                            scroll: 1,
+                            wrap: 'circular'
+                        });
+                        //End of jCarousel carousel
                     }
                 });
             });
         </script>
     </head>
     <body>
-    	<!-- This is the container for the carousel. -->
+        <!--Beginning of CloudCarousel carousel-->
         <div id = "carousel1" style="width:380px; height:256px;">   
         </div>
-        <!-- Define left and right buttons. -->
         <input id="left-but"  type="button" value="Left" />
         <input id="right-but" type="button" value="Right" />
-        <!-- Define elements to accept the alt and title text from the images. -->
-        <!--<p id="title-text"></p>-->
+        <!--End of CloudCarousel carousel-->
+        <br /><br />
+        <!--Beginning of jCarousel carousel-->
+        <ul id="mycarousel" class="jcarousel-skin-tango"></ul>
+        <!--End of jCarousel carousel-->
     </body>
 </html>
